@@ -20,10 +20,12 @@ enum class Scenario {
     BANK_PENNYDROP_FAIL,
     BANK_NAME_MISMATCH,
     DEDUP_FOUND,
-    ESIGN_FAILED,
-    TECH_DEVICE_INCOMPATIBLE,
+    ISP_DOC_INVALID,
+    VERIFICATION_REJECTED,
+    TECH_ASSESSMENT_REJECTED,
     ONBOARDFEE_FAILED,
     TRAINING_QUIZ_FAIL,
+    POLICY_QUIZ_FAIL,
 }
 
 data class ScenarioMeta(
@@ -35,22 +37,24 @@ data class ScenarioMeta(
 )
 
 val scenarioMeta = mapOf(
-    Scenario.PHONE_DUPLICATE to ScenarioMeta(0, "नंबर पहले से रजिस्टर्ड", "Phone Already Registered", "📱", "registration"),
-    Scenario.OTP_WRONG to ScenarioMeta(1, "गलत OTP", "Wrong OTP Entered", "❌", "registration"),
-    Scenario.OTP_EXPIRED to ScenarioMeta(1, "OTP Expired", "OTP Expired", "⏰", "registration"),
-    Scenario.AREA_NOT_SERVICEABLE to ScenarioMeta(3, "एरिया सर्विसेबल नहीं", "Area Not Serviceable", "📍", "verification"),
-    Scenario.KYC_PAN_MISMATCH to ScenarioMeta(4, "PAN नाम मेल नहीं खाता", "PAN Name Mismatch", "🪪", "verification"),
-    Scenario.KYC_AADHAAR_EXPIRED to ScenarioMeta(4, "Aadhaar पता पुराना", "Aadhaar Expired", "⚠\uFE0F", "verification"),
-    Scenario.KYC_PAN_AADHAAR_UNLINKED to ScenarioMeta(4, "PAN-Aadhaar लिंक नहीं", "PAN-Aadhaar Not Linked", "🔗", "verification"),
-    Scenario.REGFEE_FAILED to ScenarioMeta(5, "₹2K भुगतान फेल", "₹2K Payment Failed", "💳", "payment"),
-    Scenario.REGFEE_TIMEOUT to ScenarioMeta(5, "₹2K भुगतान Timeout", "₹2K Payment Timeout", "⏳", "payment"),
-    Scenario.BANK_PENNYDROP_FAIL to ScenarioMeta(8, "Penny Drop फेल", "Penny Drop Failed", "🏦", "bank"),
-    Scenario.BANK_NAME_MISMATCH to ScenarioMeta(8, "Bank नाम मेल नहीं खाता", "Bank Name Mismatch", "👤", "bank"),
-    Scenario.DEDUP_FOUND to ScenarioMeta(8, "Dedup मैच मिला", "Dedup Match Found", "🔍", "bank"),
-    Scenario.ESIGN_FAILED to ScenarioMeta(9, "e-Sign फेल", "e-Sign Failed", "✍\uFE0F", "documentation"),
-    Scenario.TECH_DEVICE_INCOMPATIBLE to ScenarioMeta(10, "Device Compatible नहीं", "Device Incompatible", "📵", "documentation"),
-    Scenario.ONBOARDFEE_FAILED to ScenarioMeta(11, "₹20K भुगतान फेल", "₹20K Payment Failed", "💸", "payment"),
-    Scenario.TRAINING_QUIZ_FAIL to ScenarioMeta(13, "Quiz फेल", "Quiz Failed", "📝", "training"),
+    Scenario.PHONE_DUPLICATE to ScenarioMeta(0, "\u0928\u0902\u092C\u0930 \u092A\u0939\u0932\u0947 \u0938\u0947 \u0930\u091C\u093F\u0938\u094D\u091F\u0930\u094D\u0921", "Phone Already Registered", "\uD83D\uDCF1", "registration"),
+    Scenario.OTP_WRONG to ScenarioMeta(1, "\u0917\u0932\u0924 OTP", "Wrong OTP Entered", "\u274C", "registration"),
+    Scenario.OTP_EXPIRED to ScenarioMeta(1, "OTP Expired", "OTP Expired", "\u23F0", "registration"),
+    Scenario.AREA_NOT_SERVICEABLE to ScenarioMeta(3, "\u090F\u0930\u093F\u092F\u093E \u0938\u0930\u094D\u0935\u093F\u0938\u0947\u092C\u0932 \u0928\u0939\u0940\u0902", "Area Not Serviceable", "\uD83D\uDCCD", "verification"),
+    Scenario.KYC_PAN_MISMATCH to ScenarioMeta(5, "PAN \u0928\u093E\u092E \u092E\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093E\u0924\u093E", "PAN Name Mismatch", "\uD83E\uDEAA", "verification"),
+    Scenario.KYC_AADHAAR_EXPIRED to ScenarioMeta(5, "Aadhaar \u092A\u0924\u093E \u092A\u0941\u0930\u093E\u0928\u093E", "Aadhaar Expired", "\u26A0\uFE0F", "verification"),
+    Scenario.KYC_PAN_AADHAAR_UNLINKED to ScenarioMeta(5, "PAN-Aadhaar \u0932\u093F\u0902\u0915 \u0928\u0939\u0940\u0902", "PAN-Aadhaar Not Linked", "\uD83D\uDD17", "verification"),
+    Scenario.REGFEE_FAILED to ScenarioMeta(4, "\u20B92K \u092D\u0941\u0917\u0924\u093E\u0928 \u092B\u0947\u0932", "\u20B92K Payment Failed", "\uD83D\uDCB3", "payment"),
+    Scenario.REGFEE_TIMEOUT to ScenarioMeta(4, "\u20B92K \u092D\u0941\u0917\u0924\u093E\u0928 Timeout", "\u20B92K Payment Timeout", "\u23F3", "payment"),
+    Scenario.BANK_PENNYDROP_FAIL to ScenarioMeta(6, "Penny Drop \u092B\u0947\u0932", "Penny Drop Failed", "\uD83C\uDFE6", "bank"),
+    Scenario.BANK_NAME_MISMATCH to ScenarioMeta(6, "Bank \u0928\u093E\u092E \u092E\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093E\u0924\u093E", "Bank Name Mismatch", "\uD83D\uDC64", "bank"),
+    Scenario.DEDUP_FOUND to ScenarioMeta(6, "Dedup \u092E\u0948\u091A \u092E\u093F\u0932\u093E", "Dedup Match Found", "\uD83D\uDD0D", "bank"),
+    Scenario.ISP_DOC_INVALID to ScenarioMeta(7, "ISP \u0926\u0938\u094D\u0924\u093E\u0935\u0947\u091C\u093C \u0905\u092E\u093E\u0928\u094D\u092F", "ISP Document Invalid", "\uD83D\uDCC4", "documentation"),
+    Scenario.VERIFICATION_REJECTED to ScenarioMeta(9, "\u0938\u0924\u094D\u092F\u093E\u092A\u0928 \u0905\u0938\u094D\u0935\u0940\u0915\u0943\u0924", "Verification Rejected", "\u274C", "verification"),
+    Scenario.TECH_ASSESSMENT_REJECTED to ScenarioMeta(12, "\u0924\u0915\u0928\u0940\u0915\u0940 \u092E\u0942\u0932\u094D\u092F\u093E\u0902\u0915\u0928 \u0905\u0938\u094D\u0935\u0940\u0915\u0943\u0924", "Tech Assessment Rejected", "\uD83D\uDEE0\uFE0F", "assessment"),
+    Scenario.ONBOARDFEE_FAILED to ScenarioMeta(11, "\u20B920K \u092D\u0941\u0917\u0924\u093E\u0928 \u092B\u0947\u0932", "\u20B920K Payment Failed", "\uD83D\uDCB8", "payment"),
+    Scenario.TRAINING_QUIZ_FAIL to ScenarioMeta(14, "Quiz \u092B\u0947\u0932", "Quiz Failed", "\uD83D\uDCDD", "training"),
+    Scenario.POLICY_QUIZ_FAIL to ScenarioMeta(15, "\u092A\u0949\u0932\u093F\u0938\u0940 Quiz \u092B\u0947\u0932", "Policy Quiz Failed", "\uD83D\uDCCB", "training"),
 )
 
 data class QuizQuestion(
@@ -74,14 +78,18 @@ data class TrainingModule(
 )
 
 object OnboardingState {
+    var pitchDismissed by mutableStateOf(false)
     var currentScreen by mutableIntStateOf(0)
-    var qaRejected by mutableStateOf(false)
-    const val TOTAL_SCREENS = 15
+    var verificationRejected by mutableStateOf(false)
+    var techAssessmentRejected by mutableStateOf(false)
+    const val TOTAL_SCREENS = 17
 
     // Scenario simulator
     var activeScenario by mutableStateOf(Scenario.NONE)
-    var simulatorExpanded by mutableStateOf(false)
+    var simulatorExpanded by mutableStateOf(true)
     var isLoading by mutableStateOf(false)
+    var isProcessing by mutableStateOf(false)
+    var processingMessage by mutableStateOf("")
 
     // Validation state
     var phoneError by mutableStateOf<String?>(null)
@@ -95,6 +103,7 @@ object OnboardingState {
     var otpDigits by mutableStateOf(listOf("", "", "", ""))
     var otpTimerSeconds by mutableIntStateOf(30)
     var otpTimerExpired by mutableStateOf(false)
+    var tncAccepted by mutableStateOf(false)
     var personalName by mutableStateOf("")
     var personalEmail by mutableStateOf("")
     var entityType by mutableStateOf("")
@@ -116,10 +125,15 @@ object OnboardingState {
     var bankIfsc by mutableStateOf("")
     var bankVerified by mutableStateOf(false)
 
-    // Tech review
+    // ISP Agreement
+    var ispAgreementUploaded by mutableStateOf(false)
+
+    // Shop & Equipment Photos
     var shopPhotoUploaded by mutableStateOf(false)
-    var equipmentReviewed by mutableStateOf(false)
-    var internetSetupType by mutableStateOf("")
+    var equipmentPhotoUploaded by mutableStateOf(false)
+
+    // Policy Quiz
+    var policyQuizPassed by mutableStateOf(false)
 
     // Training modules
     var trainingModules = mutableStateListOf<TrainingModule>()
@@ -261,6 +275,7 @@ object OnboardingState {
         isFilledMode = true
         phoneNumber = "9876543210"
         otpDigits = listOf("4", "7", "2", "9")
+        tncAccepted = true
         personalName = "\u0930\u093E\u091C\u0947\u0936 \u0915\u0941\u092E\u093E\u0930"
         personalEmail = "rajesh@email.com"
         entityType = "Individual"
@@ -277,9 +292,10 @@ object OnboardingState {
         bankAccountNumber = "XXXX XXXX 4521"
         bankIfsc = "SBIN0001234"
         bankVerified = true
+        ispAgreementUploaded = true
         shopPhotoUploaded = true
-        equipmentReviewed = true
-        internetSetupType = "Fiber (FTTH)"
+        equipmentPhotoUploaded = true
+        policyQuizPassed = true
         completedModuleIds.clear()
         completedModuleIds.addAll(trainingModules.map { it.id })
     }
@@ -290,6 +306,7 @@ object OnboardingState {
         otpDigits = listOf("", "", "", "")
         otpTimerSeconds = 30
         otpTimerExpired = false
+        tncAccepted = false
         personalName = ""
         personalEmail = ""
         entityType = ""
@@ -306,9 +323,10 @@ object OnboardingState {
         bankAccountNumber = ""
         bankIfsc = ""
         bankVerified = false
+        ispAgreementUploaded = false
         shopPhotoUploaded = false
-        equipmentReviewed = false
-        internetSetupType = ""
+        equipmentPhotoUploaded = false
+        policyQuizPassed = false
         completedModuleIds.clear()
         activeTrainingModuleId = null
         currentScreen = 0
@@ -355,20 +373,22 @@ object OnboardingState {
     )
 
     val screenMetas = listOf(
-        ScreenMeta("Phase 1", "मोबाइल नंबर", "Mobile Number"),
-        ScreenMeta("Phase 1", "OTP वेरिफिकेशन", "OTP Verification"),
-        ScreenMeta("Phase 1", "व्यक्तिगत जानकारी", "Personal Info"),
-        ScreenMeta("Phase 1", "लोकेशन", "Location"),
-        ScreenMeta("Phase 1", "KYC दस्तावेज़", "KYC Documents"),
-        ScreenMeta("Phase 1", "रजिस्ट्रेशन फ़ीस", "Registration Fee"),
-        ScreenMeta("Phase 2", "QA Investigation", "QA Investigation"),
-        ScreenMeta("Phase 2", "नीतियां और रेट कार्ड", "Policy & Rate Card"),
-        ScreenMeta("Phase 2", "Bank + Dedup Check", "Bank + Dedup"),
-        ScreenMeta("Phase 2", "एग्रीमेंट", "Agreement"),
-        ScreenMeta("Phase 2", "तकनीकी समीक्षा", "Technical Review"),
-        ScreenMeta("Phase 3", "ऑनबोर्डिंग फ़ीस", "Onboarding Fee"),
-        ScreenMeta("Phase 3", "फ़ाइनेंशियल सेटअप", "Financial Setup"),
-        ScreenMeta("Phase 3", "ट्रेनिंग", "Training"),
-        ScreenMeta("Phase 3", "Go Live!", "Go Live!"),
+        ScreenMeta("Stage 1", "\u092E\u094B\u092C\u093E\u0907\u0932 \u0928\u0902\u092C\u0930", "Mobile Number"),
+        ScreenMeta("Stage 1", "OTP + T&C", "OTP + T&C"),
+        ScreenMeta("Stage 1", "\u0935\u094D\u092F\u0915\u094D\u0924\u093F\u0917\u0924 \u091C\u093E\u0928\u0915\u093E\u0930\u0940", "Personal Info"),
+        ScreenMeta("Stage 1", "\u0932\u094B\u0915\u0947\u0936\u0928", "Location"),
+        ScreenMeta("Stage 1", "\u0930\u091C\u093F\u0938\u094D\u091F\u094D\u0930\u0947\u0936\u0928 \u092B\u093C\u0940\u0938", "Registration Fee"),
+        ScreenMeta("Stage 2", "KYC \u0926\u0938\u094D\u0924\u093E\u0935\u0947\u091C\u093C", "KYC Documents"),
+        ScreenMeta("Stage 2", "Bank + Dedup Check", "Bank + Dedup"),
+        ScreenMeta("Stage 2", "ISP \u090F\u0917\u094D\u0930\u0940\u092E\u0947\u0902\u091F", "ISP Agreement"),
+        ScreenMeta("Stage 2", "\u0936\u0949\u092A \u0914\u0930 \u0909\u092A\u0915\u0930\u0923 \u092B\u093C\u094B\u091F\u094B", "Shop & Equipment Photos"),
+        ScreenMeta("Stage 2", "\u0938\u0924\u094D\u092F\u093E\u092A\u0928", "Verification"),
+        ScreenMeta("Stage 3", "\u0928\u0940\u0924\u093F, Payout \u0914\u0930 SLA", "Policy, Payout & SLA"),
+        ScreenMeta("Stage 3", "\u0911\u0928\u092C\u094B\u0930\u094D\u0921\u093F\u0902\u0917 \u092B\u093C\u0940\u0938", "Onboarding Fee"),
+        ScreenMeta("Stage 3", "\u0924\u0915\u0928\u0940\u0915\u0940 \u092E\u0942\u0932\u094D\u092F\u093E\u0902\u0915\u0928", "Technical Assessment"),
+        ScreenMeta("Stage 3", "CSP \u0916\u093E\u0924\u093E \u0938\u0947\u091F\u0905\u092A", "CSP Account Setup"),
+        ScreenMeta("Stage 3", "\u091F\u094D\u0930\u0947\u0928\u093F\u0902\u0917", "Training"),
+        ScreenMeta("Stage 3", "\u092A\u0949\u0932\u093F\u0938\u0940 Quiz", "Policy Quiz"),
+        ScreenMeta("Stage 3", "Go Live!", "Go Live!"),
     )
 }
